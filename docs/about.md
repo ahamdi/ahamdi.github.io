@@ -1,5 +1,7 @@
+---
 layout: page
 title: "About USS"
-permalink: /about/
+permalink: /aboutus/
+---
  
-This is an about us page0
+This is an about us page
