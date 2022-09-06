@@ -127,7 +127,6 @@ export default {
 
       console.log('PAGECONFIG: ', this.topics)
 
-
       // load the markdown ressource from its static ressources
       this.markdown = ''
       if (this.pageConfig.markdown !== undefined) {
