@@ -2,19 +2,19 @@
   "appName": "Git",
   "headerNavigation": [
     {
-      "name": "Playbook",
-      "path": "/playbook"
+      "name": "eXo documentation",
+      "path": "/exo-documentation"
     }
   ],
-  "landingPage": "/playbook",
+  "landingPage": "/exo-documentation",
   "topics": [
   	"news"
   ],
   "pages": [
     {
-      "route": "/playbook",
-      "name": "Playbook",
-      "description": "This is the playbook",
+      "route": "/exo-documentation",
+      "name": "eXo documentation",
+      "description": "This is eXo Documentation",
       "icon": "address-book",
       "children": [
         {
@@ -67,7 +67,7 @@
             {
               "route": "/newPagesHowto",
               "name": "New Pages HowTo",
-              "description": "how to create new Pages on the playbook",
+              "description": "how to create new Pages on eXo Documentation",
               "icon": "file-alt",
               "topics": ["process"],
               "markdown" : "/static/markdown/process/NewPagesHowto.md"

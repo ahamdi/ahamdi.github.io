@@ -2,7 +2,7 @@ applications:
 - path: ./dist
   memory: 1024M
   instances: 2
-  name: playbook
+  name: exo-documentation
   disk_quota: 1024M
   buildpack: staticfile_buildpack
   routes:

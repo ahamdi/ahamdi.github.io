@@ -1,6 +1,6 @@
 {
-  "name": "playbook",
-  "short_name": "playbook",
+  "name": "exo-documentation",
+  "short_name": "exo-documentation",
   "icons": [
     {
       "src": "/static/img/icons/android-chrome-192x192.png",

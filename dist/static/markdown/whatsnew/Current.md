@@ -1,1 +1,1 @@
-whats new on the playbook ? TBD
+whats new on the eXo documentation ? TBD
