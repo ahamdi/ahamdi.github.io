@@ -115,22 +115,6 @@ export default {
     onLoadIFrame (event) {
       console.log('onload iframe', event)
     },
-    getLikes () {
-      let route = this.$router.currentRoute.path
-      axios.post(`https://merlin-playbook-api-dev.mybluemix.net/likes`, {
-        route
-      }).then(response => {
-        this.likes = response.data.likes
-      })
-    },
-    getDislikes () {
-      let route = this.$router.currentRoute.path
-      axios.post(`https://merlin-playbook-api-dev.mybluemix.net/dislikes`, {
-        route
-      }).then(response => {
-        this.dislikes = response.data.dislikes
-      })
-    },
     /**
      * initialize - called whenever the DefaultPageRenderer needs to re-initialize to render a specific page
      */
@@ -143,16 +127,6 @@ export default {
 
       console.log('PAGECONFIG: ', this.topics)
 
-      // post the visit to cloudant
-      let route = this.$router.currentRoute.path
-      axios.post(`https://merlin-playbook-api-dev.mybluemix.net/visit`, {
-        route
-      }).then(response => {
-        console.log('response', response)
-      })
-
-      this.getLikes()
-      this.getDislikes()
 
       // load the markdown ressource from its static ressources
       this.markdown = ''
