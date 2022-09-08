@@ -13,5 +13,5 @@ jobs:
         ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
         TARGET_REPO: ahamdi/ahamdi.github.io
         TARGET_BRANCH: poc/vuepress
-        BUILD_SCRIPT: yarn && yarn docs:build
+        BUILD_SCRIPT: cd docs && yarn && yarn build
         BUILD_DIR: docs/.vuepress/dist
