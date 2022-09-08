@@ -2,14 +2,7 @@
 sidebar: auto
 ---
 
-# Config
+# Configuration
 
-## foo
+## List of system properties
 
-- Type: `string`
-- Default: `/`
-
-## bar
-
-- Type: `string`
-- Default: `/`
