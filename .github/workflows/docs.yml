@@ -10,7 +10,7 @@ jobs:
     - name: vuepress-deploy
       uses: jenkey2011/vuepress-deploy@master
       env:
-        ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+        ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         TARGET_REPO: ahamdi/ahamdi.github.io
         TARGET_BRANCH: poc/vuepress
         BUILD_SCRIPT: cd docs && yarn && yarn build
