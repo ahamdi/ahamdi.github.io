@@ -7,9 +7,7 @@ actionLink: /guide/
 features:
 - title: Getting started
   details: Getting started documentation
-- title: FAQ
-  details: Frequently asked questions
 - title: Guides
   details: Guides to follow
-footer: Made by Ali Hamdi with ❤️
+footer: Made by eXo with ❤️
 ---
