@@ -45,11 +45,10 @@ module.exports = {
     ],
     sidebar: {
       '/guide': [
-        '', // this is your docs/README.md
-    
         {
           title: 'Getting Started',
           collapsable: false,
+          path: '/guide/getting-started/',
           children: [
             '/guide/getting-started/Introduction',
             '/guide/getting-started/start-community',
