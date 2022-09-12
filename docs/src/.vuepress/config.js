@@ -86,6 +86,8 @@ module.exports = {
               children: [
                 '/guide/developer-guide/advanced-integration/extension-points',
                 '/guide/developer-guide/advanced-integration/rest-api',
+                '/guide/openapi/social-swagger',
+                '/guide/openapi/social-swagger-with-samples',
               ]
             },
             {
