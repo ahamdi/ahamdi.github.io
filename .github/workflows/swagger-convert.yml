@@ -8,7 +8,7 @@ jobs:
   get_and_commit_swagger_export_files:
     runs-on: ubuntu-latest
     env:
-      TARGET_FOLDER: "docs/src/guide/"
+      TARGET_FOLDER: "docs/src/guide"
       SERVER_URL: "https://repository.exoplatform.org"
       M2_REPO_PREFIX: "service/local/artifact/maven/redirect?"
       url:
@@ -43,8 +43,8 @@ jobs:
       - name: Download nexus metadata
         run: |
          cd $TARGET_FOLDER
-         mkdir -p swagger
-         pushd swagger
+         mkdir -p openapi
+         pushd openapi
          for item in ${url}
          do
           file_name=$(echo ${item} | grep -o -P '(?<=m.).*(?=&a)')
