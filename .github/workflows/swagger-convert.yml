@@ -73,7 +73,6 @@ jobs:
       - name: Install Widdershins
         run: |
          npm install -g widdershins
-         sudo find / -iname widdershins
          echo $PATH
          widdershins -h
       - name: Convert files to Markdown
