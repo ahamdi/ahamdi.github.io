@@ -79,15 +79,15 @@ jobs:
         run: |
          echo "current folder is ${PWD}"
          cd $TARGET_FOLDER/swagger
-          for f in $TARGET_FOLDER/swagger/*.json
+          for fileItem in $TARGET_FOLDER/swagger/*.json
           do
-            echo $f
-            echo ${f%.json};
-            FILE_NAME=${f%.json};
-            NEW_FILE_NAME="${f%.json}.md";
-            echo $NEW_FILE_NAME;
-            echo "Processing $FILENAME into $NEW_FILE_NAME ...";
-            /usr/local/lib/node_modules/widdershins -c $f $FILENAME;
+            echo $fileItem
+            echo ${fileItem%.json};
+            FILE_NAME=${fileItem%.json};
+            GENERATED_MD_FILE="${fileItem%.json}.md";
+            echo $GENERATED_MD_FILE;
+            echo "Processing $fileItem into $GENERATED_MD_FILE ...";
+            widdershins -c $fileItem $GENERATED_MD_FILE;
           done
 
          
