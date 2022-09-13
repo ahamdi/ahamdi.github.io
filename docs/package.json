@@ -1,0 +1,19 @@
+{
+  "name": "ahamdi.github.io",
+  "version": "0.0.1",
+  "description": "eXo documentation",
+  "main": "index.js",
+  "authors": {
+    "name": "eXo",
+    "email": "ahamdi@exoplatform.com"
+  },
+  "repository": "ahamdi.github.io/ahamdi.github.io",
+  "scripts": {
+    "dev": "vuepress dev src",
+    "build": "vuepress build src"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "vuepress": "^1.5.3"
+  }
+}
