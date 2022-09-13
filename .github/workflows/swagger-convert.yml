@@ -79,15 +79,17 @@ jobs:
         run: |
          echo "current folder is ${PWD}"
          cd $TARGET_FOLDER/swagger
-          for fileItem in $TARGET_FOLDER/swagger/*.json
+          for fileItem in $TARGET_FOLDER/swagger/*
           do
-            echo $fileItem
-            echo ${fileItem%.json};
-            FILE_NAME=${fileItem%.json};
-            GENERATED_MD_FILE="${fileItem%.json}.md";
-            echo $GENERATED_MD_FILE;
-            echo "Processing $fileItem into $GENERATED_MD_FILE ...";
-            widdershins -c $fileItem $GENERATED_MD_FILE;
+            if [ "${file: -5}" == ".json" ] 
+              echo $fileItem
+              echo ${fileItem%.json};
+              FILE_NAME=${fileItem%.json};
+              GENERATED_MD_FILE="${fileItem%.json}.md";
+              echo $GENERATED_MD_FILE;
+              echo "Processing $fileItem into $GENERATED_MD_FILE ...";
+              widdershins -c $fileItem $GENERATED_MD_FILE;
+            fi  
           done
 
          
