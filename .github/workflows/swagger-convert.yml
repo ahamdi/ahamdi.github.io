@@ -85,7 +85,7 @@ jobs:
             NEW_FILE_NAME="${f%.json}.md";
             echo $NEW_FILE_NAME;
             echo "Processing $FILENAME into $NEW_FILE_NAME ...";
-            widdershins -c $f $FILENAME;
+            /usr/local/lib/node_modules/widdershins -c $f $FILENAME;
           done
 
          
