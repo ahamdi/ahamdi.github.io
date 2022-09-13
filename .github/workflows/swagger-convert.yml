@@ -73,6 +73,7 @@ jobs:
       - name: Install Widdershins
         run: |
          npm install -g widdershins
+         locate widdershins
       - name: Convert files to Markdown
         run: |
          echo "current folder is ${PWD}"
