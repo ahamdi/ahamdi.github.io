@@ -74,6 +74,8 @@ jobs:
         run: |
          npm install -g widdershins
          sudo find / -iname widdershins
+         echo $PATH
+         widdershins -h
       - name: Convert files to Markdown
         run: |
          echo "current folder is ${PWD}"
