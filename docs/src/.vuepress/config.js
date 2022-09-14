@@ -9,6 +9,7 @@ module.exports = {
    * Ref：https://v1.vuepress.vuejs.org/config/#description
    */
   description: description,
+  theme: 'openapi',
 
   /**
    * Extra tags to be injected to the page HTML `<head>`
@@ -88,6 +89,7 @@ module.exports = {
                 '/guide/developer-guide/advanced-integration/rest-api',
                 '/guide/openapi/social-swagger',
                 '/guide/openapi/social-swagger-with-samples',
+                '/social-swagger/',
               ]
             },
             {
