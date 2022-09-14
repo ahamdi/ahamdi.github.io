@@ -76,6 +76,7 @@ jobs:
       - name: Convert files to Markdown
         run: |
          echo "current folder is ${PWD}"
+         mkdir -p docs/guide/swagger
          cd docs/guide/swagger
          for fileItem in $TARGET_FOLDER/*.json
          do
