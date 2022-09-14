@@ -1,0 +1,288 @@
+openapi: 3.0.1
+info:
+  title: Mfa Rest APIs
+  description: Mfa addon Rest endpoints
+  license:
+    name: AGPL
+    url: https://www.gnu.org/licenses/agpl-3.0.en.html
+  version: "1.0"
+tags:
+- name: /mfa
+  description: Manage MFA (multifactor-authentication) operations
+- name: /otp
+  description: Manage otp operations
+paths:
+  /mfa/available:
+    get:
+      tags:
+      - /mfa
+      summary: Get Activated MFA System
+      description: Get Activated MFA System
+      operationId: getAvalailableMfaSystems
+      responses:
+        "200":
+          description: Request fulfilled
+        "401":
+          description: Unauthorized operation
+        "500":
+          description: Internal server error
+  /mfa/changeMfaFeatureActivation/{status}:
+    put:
+      tags:
+      - /mfa
+      summary: Switch the Activated MFA System
+      description: Switch the Activated MFA System
+      operationId: changeMfaFeatureActivation
+      requestBody:
+        description: Switch the Activated MFA System to activated or deactivated
+        content:
+          '*/*':
+            schema:
+              type: string
+        required: true
+      responses:
+        "200":
+          description: Request fulfilled
+        "401":
+          description: Unauthorized operation
+        "500":
+          description: Internal server error
+  /mfa/changeMfaSystem/{mfaSystem}:
+    put:
+      tags:
+      - /mfa
+      summary: Change the MFA System
+      operationId: changeMfaSystem
+      requestBody:
+        description: Change the MFA MFA System
+        content:
+          '*/*':
+            schema:
+              type: string
+        required: true
+      responses:
+        "200":
+          description: Request fulfilled
+        "401":
+          description: Unauthorized operation
+        "500":
+          description: Internal server error
+  /mfa/deleteNavigation:
+    delete:
+      tags:
+      - /mfa
+      summary: Delete a navigation
+      description: This delete the protected navigation
+      operationId: deleteNavigation
+      requestBody:
+        description: navigation
+        content:
+          '*/*':
+            schema:
+              type: string
+        required: true
+      responses:
+        "200":
+          description: Request fulfilled
+        "401":
+          description: Unauthorized operation
+        "500":
+          description: Internal server error
+  /mfa/getProtectedGroups:
+    get:
+      tags:
+      - /mfa
+      summary: Get protected groups for MFA System
+      description: Get protected groups for MFA System
+      operationId: getProtectedGroups
+      responses:
+        "200":
+          description: Request fulfilled
+        "401":
+          description: Unauthorized operation
+        "500":
+          description: Internal server error
+  /mfa/getProtectedNavigations:
+    get:
+      tags:
+      - /mfa
+      summary: Get protected navigations for MFA System
+      description: Get protected navigations for MFA System
+      operationId: getProtectedNavigations
+      responses:
+        "200":
+          description: Request fulfilled
+        "401":
+          description: Unauthorized operation
+        "500":
+          description: Internal server error
+  /mfa/revocations:
+    get:
+      tags:
+      - /mfa
+      summary: Get Revocation Request list
+      description: Get Revocation Request list
+      operationId: getRevocationRequests
+      responses:
+        "200":
+          description: Request fulfilled
+        "401":
+          description: Unauthorized operation
+        "500":
+          description: Internal server error
+    post:
+      tags:
+      - /mfa
+      summary: Create a Revocation Request
+      description: Create a Revocation Request
+      operationId: addRevocationRequest
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              type: string
+      responses:
+        "200":
+          description: Request fulfilled
+        "401":
+          description: Unauthorized operation
+        "500":
+          description: Internal server error
+  /mfa/revocations/{id}:
+    put:
+      tags:
+      - /mfa
+      summary: Update a revocation request
+      description: Update a revocation request
+      operationId: updateRevocationRequests
+      parameters:
+      - name: id
+        in: path
+        description: RevocationRequest id
+        required: true
+        schema:
+          type: string
+      - name: status
+        in: query
+        description: RevocationRequest status confirm/cancel
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: Request fulfilled
+        "401":
+          description: Unauthorized operation
+        "500":
+          description: Internal server error
+  /mfa/saveProtectedGroups:
+    post:
+      tags:
+      - /mfa
+      summary: set mfa groups
+      description: set mfa groups
+      operationId: saveProtectedGroups
+      requestBody:
+        description: groups
+        content:
+          '*/*':
+            schema:
+              type: string
+        required: true
+      responses:
+        "200":
+          description: Request fulfilled
+        "401":
+          description: Unauthorized operation
+        "500":
+          description: Internal server error
+  /mfa/saveProtectedNavigations:
+    post:
+      tags:
+      - /mfa
+      summary: set mfa navigations
+      description: set mfa navigations
+      operationId: saveProtectedNavigations
+      requestBody:
+        description: navigations
+        content:
+          '*/*':
+            schema:
+              type: string
+        required: true
+      responses:
+        "200":
+          description: Request fulfilled
+        "401":
+          description: Unauthorized operation
+        "500":
+          description: Internal server error
+  /mfa/settings:
+    get:
+      tags:
+      - /mfa
+      summary: Get Activated MFA System
+      description: Get Activated MFA System
+      operationId: getMfaSystem
+      responses:
+        "200":
+          description: Request fulfilled
+        "401":
+          description: Unauthorized operation
+        "500":
+          description: Internal server error
+  /otp/checkRegistration:
+    get:
+      tags:
+      - /otp
+      summary: Check if user have activated his OTP
+      description: Check if user have activated his OTP
+      operationId: checkRegistration
+      responses:
+        "200":
+          description: Request fulfilled
+        "400":
+          description: Invalid query input
+        "401":
+          description: Unauthorized operation
+        "500":
+          description: Internal server error
+  /otp/generateSecret:
+    get:
+      tags:
+      - /otp
+      summary: Generate New secret OTP for user
+      description: Generate New secret OTP for user
+      operationId: generateSecret
+      responses:
+        "200":
+          description: Request fulfilled
+        "400":
+          description: Invalid query input
+        "401":
+          description: Unauthorized operation
+        "500":
+          description: Internal server error
+  /otp/verify:
+    get:
+      tags:
+      - /otp
+      summary: Verify OTP token
+      description: Verify OTP token
+      operationId: verifyToken
+      parameters:
+      - name: token
+        in: query
+        description: Token to verify
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: Request fulfilled
+        "400":
+          description: Invalid query input
+        "401":
+          description: Unauthorized operation
+        "500":
+          description: Internal server error

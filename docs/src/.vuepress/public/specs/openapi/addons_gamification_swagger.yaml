@@ -1,0 +1,1053 @@
+openapi: 3.0.1
+info:
+  title: Gamification Rest Api
+  description: Gamification addon rest endpoints
+  license:
+    name: LGPL
+    url: https://www.gnu.org/licenses/lgpl-3.0.en.html
+  version: "1.0"
+tags:
+- name: /gamification/announcement/api
+  description: Manages announcement associated to users
+- name: /challenge/api
+  description: Manages challenge associated to users
+- name: /gamification/rules
+  description: Manages rules
+- name: /gamification/realizations/api
+  description: Manages users realizations
+paths:
+  /gamification/announcement/api/ByChallengeId/{challengeId}:
+    get:
+      tags:
+      - /gamification/announcement/api
+      summary: Retrieves the list of challenges available for an owner
+      description: Retrieves the list of challenges available for an owner
+      operationId: getAllAnnouncementByChallenge
+      parameters:
+      - name: challengeId
+        in: path
+        description: id of the challenge
+        required: true
+        schema:
+          type: string
+      - name: offset
+        in: query
+        description: Offset of result
+        schema:
+          type: integer
+          format: int32
+          default: 0
+      - name: limit
+        in: query
+        description: Limit of result
+        schema:
+          type: integer
+          format: int32
+          default: 10
+      responses:
+        "200":
+          description: Request fulfilled
+        "401":
+          description: Unauthorized operation
+        "500":
+          description: Internal server error
+  /gamification/announcement/api/addAnnouncement:
+    post:
+      tags:
+      - /gamification/announcement/api
+      summary: Creates a new Announcement
+      description: Creates a new Announcement
+      operationId: createAnnouncement
+      requestBody:
+        description: Announcement object to create
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AnnouncementActivity'
+        required: true
+      responses:
+        "204":
+          description: Request fulfilled
+        "400":
+          description: Invalid query input
+        "401":
+          description: Unauthorized operation
+        "500":
+          description: Internal server error
+        "403":
+          description: Forbidden operation
+  /gamification/api/v1/domains:
+    get:
+      operationId: getDomains
+      responses:
+        default:
+          description: default response
+          content:
+            application/json: {}
+  /gamification/api/v1/events:
+    get:
+      operationId: getAllEvents
+      responses:
+        default:
+          description: default response
+          content:
+            application/json: {}
+  /gamification/api/v1/leaderboard/date:
+    get:
+      operationId: getLeaderboardByDate
+      parameters:
+      - name: earnerType
+        in: query
+        schema:
+          type: string
+      - name: startDate
+        in: query
+        schema:
+          type: string
+      - name: endDate
+        in: query
+        schema:
+          type: string
+      responses:
+        default:
+          description: default response
+          content:
+            application/json: {}
+  /gamification/api/v1/points:
+    get:
+      operationId: getAllPointsByUserId
+      parameters:
+      - name: userId
+        in: query
+        schema:
+          type: string
+      - name: period
+        in: query
+        schema:
+          type: string
+      responses:
+        default:
+          description: default response
+          content:
+            application/json: {}
+  /gamification/api/v1/points/date:
+    get:
+      operationId: getAllPointsByUserIdByDate
+      parameters:
+      - name: userId
+        in: query
+        schema:
+          type: string
+      - name: startDate
+        in: query
+        schema:
+          type: string
+      - name: endDate
+        in: query
+        schema:
+          type: string
+      responses:
+        default:
+          description: default response
+          content:
+            application/json: {}
+  /gamification/badges/add:
+    post:
+      operationId: addBadge
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              $ref: '#/components/schemas/BadgeDTO'
+      responses:
+        default:
+          description: default response
+          content:
+            application/json: {}
+  /gamification/badges/all:
+    get:
+      operationId: getAllBadges
+      responses:
+        default:
+          description: default response
+          content:
+            application/json: {}
+  /gamification/badges/delete/{id}:
+    delete:
+      operationId: deleteBadge
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        default:
+          description: default response
+          content:
+            application/json: {}
+  /gamification/badges/update:
+    put:
+      operationId: updateBadge
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              $ref: '#/components/schemas/BadgeDTO'
+      responses:
+        default:
+          description: default response
+          content:
+            application/json: {}
+  /gamification/challenges:
+    get:
+      tags:
+      - /challenge/api
+      summary: Retrieves the list of challenges available for an owner
+      description: Retrieves the list of challenges available for an owner
+      operationId: getAllChallengesByUser
+      parameters:
+      - name: offset
+        in: query
+        description: Offset of result
+        schema:
+          type: integer
+          format: int32
+          default: 0
+      - name: limit
+        in: query
+        description: Limit of result
+        schema:
+          type: integer
+          format: int32
+          default: 10
+      - name: groupByDomain
+        in: query
+        description: Group challenges by domain
+        schema:
+          type: boolean
+          default: false
+      - name: domainId
+        in: query
+        description: Used to filter challenges by domain
+        schema:
+          type: integer
+          format: int64
+      - name: announcements
+        in: query
+        description: Number of announcements per challenge
+        schema:
+          type: integer
+          format: int32
+          default: 0
+      - name: term
+        in: query
+        description: term to search challenges with
+        schema:
+          type: string
+      - name: filter
+        in: query
+        description: "Challenge period filtering. Possible values: STARTED, NOT_STARTED,\
+          \ ENDED, ALL"
+        schema:
+          type: string
+          default: ALL
+      responses:
+        "200":
+          description: Request fulfilled
+        "401":
+          description: Unauthorized operation
+        "500":
+          description: Internal server error
+    put:
+      tags:
+      - /challenge/api
+      summary: Updates an existing challenge
+      description: Updates an existing challenge
+      operationId: updateChallenge
+      requestBody:
+        description: challenge object to update
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Challenge'
+        required: true
+      responses:
+        "204":
+          description: Request fulfilled
+        "404":
+          description: Object not found
+        "400":
+          description: Invalid query input
+        "401":
+          description: Unauthorized operation
+        "500":
+          description: Internal server error
+    post:
+      tags:
+      - /challenge/api
+      summary: Creates a new challenge
+      description: Creates a new challenge
+      operationId: createChallenge
+      requestBody:
+        description: Challenge object to create
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Challenge'
+        required: true
+      responses:
+        "204":
+          description: Request fulfilled
+        "400":
+          description: Invalid query input
+        "401":
+          description: Unauthorized operation
+        "500":
+          description: Internal server error
+  /gamification/challenges/canAddChallenge:
+    get:
+      tags:
+      - /challenge/api
+      summary: check if the current user can add a challenge
+      description: This checks if the current user user can add a challenge
+      operationId: canAddChallenge
+      responses:
+        "200":
+          description: User ability to add a challenge is returned
+        "401":
+          description: User not authorized to add a challenge
+  /gamification/challenges/{challengeId}:
+    get:
+      tags:
+      - /challenge/api
+      summary: Retrieves a challenge by its id
+      description: returns selected challenge if exists
+      operationId: getChallengeById
+      parameters:
+      - name: challengeId
+        in: path
+        description: Challenge technical id
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: offset
+        in: query
+        description: Offset of result
+        schema:
+          type: integer
+          format: int32
+          default: 0
+      - name: limit
+        in: query
+        description: Limit of result
+        schema:
+          type: integer
+          format: int32
+          default: 10
+      responses:
+        "200":
+          description: Request fulfilled
+        "400":
+          description: Invalid query input
+        "403":
+          description: Unauthorized operation
+        "500":
+          description: Internal server error
+  /gamification/challenges/{id}:
+    delete:
+      tags:
+      - /challenge/api
+      summary: check if the current user can add a challenge
+      description: This checks if the current user user can add a challenge
+      operationId: deleteChallenge
+      parameters:
+      - name: id
+        in: path
+        description: challenge id to be deleted
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: challenge deleted
+        "401":
+          description: User not authorized to delete a challenge
+        "400":
+          description: Invalid query input
+        "404":
+          description: Object not found
+        "500":
+          description: Internal server error
+  /gamification/domains:
+    get:
+      operationId: getAllDomains
+      responses:
+        default:
+          description: default response
+          content:
+            application/json: {}
+    post:
+      operationId: addDomain
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DomainDTO'
+      responses:
+        default:
+          description: default response
+          content:
+            application/json: {}
+  /gamification/domains/{id}:
+    put:
+      operationId: updateDomain
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              $ref: '#/components/schemas/DomainDTO'
+      responses:
+        default:
+          description: default response
+          content:
+            application/json: {}
+    delete:
+      operationId: deleteRule
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        default:
+          description: default response
+          content:
+            application/json: {}
+  /gamification/gameficationinformationsboard/history/all:
+    get:
+      operationId: getAllLeadersByRank
+      parameters:
+      - name: capacity
+        in: query
+        schema:
+          type: string
+      - name: providerId
+        in: query
+        schema:
+          type: string
+      - name: remoteId
+        in: query
+        schema:
+          type: string
+      responses:
+        default:
+          description: default response
+          content:
+            application/json: {}
+  /gamification/leaderboard/filter:
+    get:
+      operationId: filter
+      parameters:
+      - name: domain
+        in: query
+        schema:
+          type: string
+      - name: period
+        in: query
+        schema:
+          type: string
+      - name: capacity
+        in: query
+        schema:
+          type: string
+      responses:
+        default:
+          description: default response
+          content:
+            application/json: {}
+  /gamification/leaderboard/rank/all:
+    get:
+      operationId: getAllLeadersByRank_1
+      parameters:
+      - name: earnerType
+        in: query
+        description: Get leaderboard of user or space
+        schema:
+          type: string
+          default: user
+      - name: limit
+        in: query
+        description: Limit of identities to retrieve
+        schema:
+          type: integer
+          format: int32
+          default: 10
+      - name: period
+        in: query
+        description: "Period name, possible values: WEEK, MONTH or ALL"
+        schema:
+          type: string
+          default: ALL
+      - name: loadCapacity
+        in: query
+        description: Get only the top 10 or all
+        schema:
+          type: boolean
+          default: true
+      responses:
+        default:
+          description: default response
+          content:
+            application/json: {}
+  /gamification/leaderboard/stats:
+    get:
+      operationId: stats
+      parameters:
+      - name: username
+        in: query
+        schema:
+          type: string
+      - name: period
+        in: query
+        schema:
+          type: string
+      responses:
+        default:
+          description: default response
+          content:
+            application/json: {}
+  /gamification/realizations/api/allRealizations:
+    get:
+      tags:
+      - /gamification/realizations/api
+      summary: Retrieves the list of challenges available for an owner
+      description: Retrieves the list of challenges available for an owner
+      operationId: getAllRealizations
+      parameters:
+      - name: fromDate
+        in: query
+        description: result fromDate
+        required: true
+        schema:
+          type: string
+      - name: toDate
+        in: query
+        description: result toDate
+        required: true
+        schema:
+          type: string
+      - name: sortBy
+        in: query
+        description: "Sort field. Possible values: date or actionType."
+        schema:
+          type: string
+          default: date
+      - name: sortDescending
+        in: query
+        description: Whether to retrieve results sorted descending or not
+        schema:
+          type: boolean
+          default: true
+      - name: offset
+        in: query
+        description: Offset of result
+        schema:
+          type: integer
+          format: int32
+          default: 0
+      - name: limit
+        in: query
+        description: Limit of result
+        schema:
+          type: integer
+          format: int32
+          default: 10
+      responses:
+        "200":
+          description: Request fulfilled
+        "401":
+          description: Unauthorized operation
+        "500":
+          description: Internal server error
+  /gamification/realizations/api/getExport:
+    get:
+      tags:
+      - /gamification/realizations/api
+      summary: Gets CSV report
+      description: returns a csv file of actions
+      operationId: getReport
+      parameters:
+      - name: fromDate
+        in: query
+        description: result fromDate
+        required: true
+        schema:
+          type: string
+      - name: toDate
+        in: query
+        description: result toDate
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: Request fulfilled
+        "500":
+          description: Internal server error
+        "400":
+          description: Invalid query input
+  /gamification/realizations/api/updateRealizations:
+    put:
+      tags:
+      - /gamification/realizations/api
+      summary: Updates an existing realization
+      description: Updates an existing realization
+      operationId: updateRealizations
+      parameters:
+      - name: realizationId
+        in: query
+        description: id of realization
+        required: true
+        schema:
+          type: string
+      - name: status
+        in: query
+        description: new status of realization
+        required: true
+        schema:
+          type: string
+      - name: actionLabel
+        in: query
+        description: new action Label of realization
+        schema:
+          type: string
+      - name: points
+        in: query
+        description: new points of realization
+        schema:
+          type: integer
+          format: int64
+      - name: domain
+        in: query
+        description: new domain of realization
+        schema:
+          type: string
+      responses:
+        "204":
+          description: Request fulfilled
+        "404":
+          description: Object not found
+        "400":
+          description: Invalid query input
+        "401":
+          description: Unauthorized operation
+        "500":
+          description: Internal server error
+  /gamification/reputation/AllofBadges:
+    get:
+      operationId: getAllOfBadges
+      parameters:
+      - name: url
+        in: query
+        schema:
+          type: string
+      responses:
+        default:
+          description: default response
+          content:
+            application/json: {}
+  /gamification/reputation/badge/{badge}/avatar:
+    get:
+      operationId: getBadgeAvatarById
+      parameters:
+      - name: badge
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        default:
+          description: default response
+          content:
+            application/json: {}
+  /gamification/reputation/badges:
+    get:
+      operationId: getUserBadges_1
+      parameters:
+      - name: url
+        in: query
+        schema:
+          type: string
+      responses:
+        default:
+          description: default response
+          content:
+            application/json: {}
+  /gamification/reputation/badges/{identityId}:
+    get:
+      operationId: getUserBadges
+      parameters:
+      - name: identityId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        default:
+          description: default response
+          content:
+            application/json: {}
+  /gamification/reputation/otherBadges:
+    get:
+      operationId: getOtherBadges
+      parameters:
+      - name: url
+        in: query
+        schema:
+          type: string
+      responses:
+        default:
+          description: default response
+          content:
+            application/json: {}
+  /gamification/reputation/stats:
+    get:
+      operationId: stat
+      parameters:
+      - name: url
+        in: query
+        schema:
+          type: string
+      responses:
+        default:
+          description: default response
+          content:
+            application/json: {}
+  /gamification/reputation/status:
+    get:
+      operationId: getReputationStatus
+      parameters:
+      - name: username
+        in: query
+        schema:
+          type: string
+      - name: url
+        in: query
+        schema:
+          type: string
+      responses:
+        default:
+          description: default response
+          content:
+            application/json: {}
+  /gamification/reputation/won:
+    get:
+      operationId: getallBadges
+      parameters:
+      - name: url
+        in: query
+        schema:
+          type: string
+      responses:
+        default:
+          description: default response
+          content:
+            application/json: {}
+  /gamification/rules/active:
+    get:
+      tags:
+      - /gamification/rules
+      operationId: getActiveRules
+      responses:
+        default:
+          description: default response
+          content:
+            application/json: {}
+  /gamification/rules/add:
+    post:
+      tags:
+      - /gamification/rules
+      operationId: addRule
+      requestBody:
+        description: rule object to save
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RuleDTO'
+        required: true
+      responses:
+        default:
+          description: default response
+          content:
+            application/json: {}
+  /gamification/rules/all:
+    get:
+      tags:
+      - /gamification/rules
+      operationId: getAllRules
+      responses:
+        default:
+          description: default response
+          content:
+            application/json: {}
+  /gamification/rules/delete/{id}:
+    put:
+      tags:
+      - /gamification/rules
+      operationId: deleteRule_1
+      parameters:
+      - name: id
+        in: path
+        description: id of the rule
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        default:
+          description: default response
+          content:
+            application/json: {}
+  /gamification/rules/update:
+    put:
+      tags:
+      - /gamification/rules
+      operationId: updateRule
+      requestBody:
+        description: rule object to update
+        content:
+          '*/*':
+            schema:
+              $ref: '#/components/schemas/RuleDTO'
+        required: true
+      responses:
+        default:
+          description: default response
+          content:
+            application/json: {}
+  /gamification/space/leaderboard/filter:
+    get:
+      operationId: filter_1
+      parameters:
+      - name: domain
+        in: query
+        schema:
+          type: string
+      - name: period
+        in: query
+        schema:
+          type: string
+      - name: url
+        in: query
+        schema:
+          type: string
+      - name: capacity
+        in: query
+        schema:
+          type: string
+      responses:
+        default:
+          description: default response
+          content:
+            application/json: {}
+  /gamification/space/leaderboard/overall:
+    get:
+      operationId: getAllLeadersByRank_2
+      parameters:
+      - name: url
+        in: query
+        schema:
+          type: string
+      responses:
+        default:
+          description: default response
+          content:
+            application/json: {}
+components:
+  schemas:
+    AnnouncementActivity:
+      type: object
+      properties:
+        activityId:
+          type: integer
+          format: int64
+        assignee:
+          type: integer
+          format: int64
+        challengeId:
+          type: integer
+          format: int64
+        challengeTitle:
+          type: string
+        comment:
+          type: string
+        createdDate:
+          type: string
+        creator:
+          type: integer
+          format: int64
+        id:
+          type: integer
+          format: int64
+        templateParams:
+          type: object
+          additionalProperties:
+            type: string
+    BadgeDTO:
+      type: object
+      properties:
+        createdBy:
+          type: string
+        createdDate:
+          type: string
+        deleted:
+          type: boolean
+        description:
+          type: string
+        domain:
+          type: string
+        domainDTO:
+          $ref: '#/components/schemas/DomainDTO'
+        enabled:
+          type: boolean
+        endValidityDate:
+          type: string
+        icon:
+          type: array
+          items:
+            type: string
+            format: byte
+        iconFileId:
+          type: integer
+          format: int64
+        id:
+          type: integer
+          format: int64
+        lastModifiedBy:
+          type: string
+        lastModifiedDate:
+          type: string
+        neededScore:
+          type: integer
+          format: int32
+        startValidityDate:
+          type: string
+        title:
+          type: string
+        uploadId:
+          type: string
+    Challenge:
+      type: object
+      properties:
+        audience:
+          type: integer
+          format: int64
+        description:
+          type: string
+        endDate:
+          type: string
+        id:
+          type: integer
+          format: int64
+        managers:
+          type: array
+          items:
+            type: integer
+            format: int64
+        points:
+          type: integer
+          format: int64
+        program:
+          type: string
+        startDate:
+          type: string
+        title:
+          type: string
+    DomainDTO:
+      type: object
+      properties:
+        createdBy:
+          type: string
+        createdDate:
+          type: string
+        deleted:
+          type: boolean
+        description:
+          type: string
+        enabled:
+          type: boolean
+        id:
+          type: integer
+          format: int64
+        lastModifiedBy:
+          type: string
+        lastModifiedDate:
+          type: string
+        priority:
+          type: integer
+          format: int32
+        title:
+          type: string
+    RuleDTO:
+      type: object
+      properties:
+        area:
+          type: string
+        audience:
+          type: integer
+          format: int64
+        createdBy:
+          type: string
+        createdDate:
+          type: string
+        deleted:
+          type: boolean
+        description:
+          type: string
+        domainDTO:
+          $ref: '#/components/schemas/DomainDTO'
+        enabled:
+          type: boolean
+        endDate:
+          type: string
+        event:
+          type: string
+        id:
+          type: integer
+          format: int64
+        lastModifiedBy:
+          type: string
+        lastModifiedDate:
+          type: string
+        managers:
+          type: array
+          items:
+            type: integer
+            format: int64
+        score:
+          type: integer
+          format: int32
+        startDate:
+          type: string
+        title:
+          type: string
+        type:
+          type: string
+          enum:
+          - AUTOMATIC
+          - MANUAL
