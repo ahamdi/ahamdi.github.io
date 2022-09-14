@@ -14,4 +14,4 @@ jobs:
         TARGET_REPO: ahamdi/ahamdi.github.io
         TARGET_BRANCH: gh-pages
         BUILD_SCRIPT: cd docs && yarn && yarn build
-        BUILD_DIR: src/.vuepress/dist
+        BUILD_DIR: docs/.vuepress/dist
