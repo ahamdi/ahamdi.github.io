@@ -1,0 +1,949 @@
+{
+  "openapi" : "3.0.1",
+  "info" : {
+    "title" : "Documents Rest Api",
+    "description" : "Documents addon rest endpoints",
+    "license" : {
+      "name" : "AGPL",
+      "url" : "https://www.gnu.org/licenses/agpl-3.0.en.html"
+    },
+    "version" : "1.0"
+  },
+  "tags" : [ {
+    "name" : "/v1/documents",
+    "description" : "Manages documents associated to users and spaces"
+  } ],
+  "paths" : {
+    "/v1/documents" : {
+      "get" : {
+        "tags" : [ "/v1/documents" ],
+        "summary" : "Retrieves the list of document items (folders and files) for an authenticated user switch filter",
+        "description" : "Retrieves the list of document items (folders and files) for an authenticated user switch filter.",
+        "operationId" : "getDocumentItems",
+        "parameters" : [ {
+          "name" : "ownerId",
+          "in" : "query",
+          "description" : "Identity technical identifier",
+          "schema" : {
+            "type" : "integer",
+            "format" : "int64"
+          }
+        }, {
+          "name" : "parentFolderId",
+          "in" : "query",
+          "description" : "Parent folder technical identifier",
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "folderPath",
+          "in" : "query",
+          "description" : "Parent folder path",
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "listingType",
+          "in" : "query",
+          "description" : "Listing type of folder. Can be 'TIMELINE' or 'FOLDER'.",
+          "schema" : {
+            "type" : "string",
+            "enum" : [ "TIMELINE", "FOLDER" ]
+          }
+        }, {
+          "name" : "query",
+          "in" : "query",
+          "description" : "Search query entered by the user",
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "userId",
+          "in" : "query",
+          "description" : "userId",
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "favorites",
+          "in" : "query",
+          "description" : "favorites",
+          "schema" : {
+            "type" : "boolean",
+            "default" : false
+          }
+        }, {
+          "name" : "expand",
+          "in" : "query",
+          "description" : "File properties to expand.",
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "sortField",
+          "in" : "query",
+          "description" : "Document items sort field",
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "ascending",
+          "in" : "query",
+          "description" : "Sort ascending or descending",
+          "schema" : {
+            "type" : "boolean"
+          }
+        }, {
+          "name" : "offset",
+          "in" : "query",
+          "description" : "Offset of results to return",
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32",
+            "default" : 10
+          }
+        }, {
+          "name" : "limit",
+          "in" : "query",
+          "description" : "Limit of results to return",
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32",
+            "default" : 10
+          }
+        }, {
+          "name" : "showHiddenFiles",
+          "in" : "query",
+          "description" : "showHiddenFiles of results to return",
+          "schema" : {
+            "type" : "boolean",
+            "default" : false
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Request fulfilled"
+          },
+          "400" : {
+            "description" : "Invalid query input"
+          },
+          "404" : {
+            "description" : "Not found"
+          },
+          "401" : {
+            "description" : "Unauthorized operation"
+          },
+          "500" : {
+            "description" : "Internal server error"
+          }
+        }
+      }
+    },
+    "/v1/documents/breadcrumb" : {
+      "get" : {
+        "tags" : [ "/v1/documents" ],
+        "summary" : "Get breadcrumb of given",
+        "description" : "Get breadcrumb of given",
+        "operationId" : "getBreadcrumb",
+        "parameters" : [ {
+          "name" : "ownerId",
+          "in" : "query",
+          "description" : "Identity technical identifier",
+          "schema" : {
+            "type" : "integer",
+            "format" : "int64"
+          }
+        }, {
+          "name" : "folderId",
+          "in" : "query",
+          "description" : "Folder technical identifier",
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "folderPath",
+          "in" : "query",
+          "description" : "Folder path",
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Request fulfilled"
+          },
+          "400" : {
+            "description" : "Invalid query input"
+          },
+          "404" : {
+            "description" : "Not found"
+          },
+          "401" : {
+            "description" : "Unauthorized operation"
+          },
+          "500" : {
+            "description" : "Internal server error"
+          }
+        }
+      }
+    },
+    "/v1/documents/description" : {
+      "put" : {
+        "tags" : [ "/v1/documents" ],
+        "summary" : "update or create a document's description",
+        "description" : "This creates or updates a given document's description.",
+        "operationId" : "updateDocumentDescription",
+        "parameters" : [ {
+          "name" : "ownerId",
+          "in" : "query",
+          "description" : "owner id",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int64"
+          }
+        }, {
+          "name" : "documentId",
+          "in" : "query",
+          "description" : "document id",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "description",
+          "in" : "query",
+          "description" : "document id",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Request fulfilled"
+          },
+          "400" : {
+            "description" : "Invalid query input"
+          },
+          "403" : {
+            "description" : "Unauthorized operation"
+          },
+          "404" : {
+            "description" : "Resource not found"
+          }
+        }
+      }
+    },
+    "/v1/documents/duplicate" : {
+      "post" : {
+        "tags" : [ "/v1/documents" ],
+        "summary" : "POST DUPLICATE of given document",
+        "description" : "POST DUPLICATE of given document",
+        "operationId" : "duplicateDocument",
+        "parameters" : [ {
+          "name" : "ownerId",
+          "in" : "query",
+          "description" : "Identity technical identifier",
+          "schema" : {
+            "type" : "integer",
+            "format" : "int64"
+          }
+        }, {
+          "name" : "fileId",
+          "in" : "query",
+          "description" : "File technical identifier",
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "prefixClone",
+          "in" : "query",
+          "description" : "File prefix Clone",
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "expand",
+          "in" : "query",
+          "description" : "File properties to expand.",
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Request fulfilled"
+          },
+          "400" : {
+            "description" : "Invalid query input"
+          },
+          "404" : {
+            "description" : "Not found"
+          },
+          "401" : {
+            "description" : "Unauthorized operation"
+          },
+          "500" : {
+            "description" : "Internal server error"
+          }
+        }
+      }
+    },
+    "/v1/documents/folder" : {
+      "post" : {
+        "tags" : [ "/v1/documents" ],
+        "summary" : "Add a new Folder",
+        "description" : "This adds a new Folder under givin Folder.",
+        "operationId" : "createFolder",
+        "parameters" : [ {
+          "name" : "parentid",
+          "in" : "query",
+          "description" : "parent id",
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "folderPath",
+          "in" : "query",
+          "description" : "folder Path",
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "ownerId",
+          "in" : "query",
+          "description" : "owner id",
+          "schema" : {
+            "type" : "integer",
+            "format" : "int64"
+          }
+        }, {
+          "name" : "name",
+          "in" : "query",
+          "description" : "folder name",
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Request fulfilled"
+          },
+          "400" : {
+            "description" : "Invalid query input"
+          },
+          "403" : {
+            "description" : "Unauthorized operation"
+          },
+          "404" : {
+            "description" : "Resource not found"
+          }
+        }
+      }
+    },
+    "/v1/documents/fullTree" : {
+      "get" : {
+        "tags" : [ "/v1/documents" ],
+        "summary" : "Get Full Tree of given folder",
+        "description" : "Get Full Tree of given folder",
+        "operationId" : "getFullTreeData",
+        "parameters" : [ {
+          "name" : "ownerId",
+          "in" : "query",
+          "description" : "Identity technical identifier",
+          "schema" : {
+            "type" : "integer",
+            "format" : "int64"
+          }
+        }, {
+          "name" : "folderId",
+          "in" : "query",
+          "description" : "Folder technical identifier",
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Request fulfilled"
+          },
+          "400" : {
+            "description" : "Invalid query input"
+          },
+          "404" : {
+            "description" : "Not found"
+          },
+          "401" : {
+            "description" : "Unauthorized operation"
+          },
+          "500" : {
+            "description" : "Internal server error"
+          }
+        }
+      }
+    },
+    "/v1/documents/group/count" : {
+      "get" : {
+        "tags" : [ "/v1/documents" ],
+        "summary" : "Get documents groups sizes",
+        "description" : "Get documents groups sizes",
+        "operationId" : "getDocumentGroupsCount",
+        "parameters" : [ {
+          "name" : "ownerId",
+          "in" : "query",
+          "description" : "Identity technical identifier",
+          "schema" : {
+            "type" : "integer",
+            "format" : "int64"
+          }
+        }, {
+          "name" : "parentFolderId",
+          "in" : "query",
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "query",
+          "in" : "query",
+          "description" : "Search query entered by the user",
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "favorites",
+          "in" : "query",
+          "description" : "favorites",
+          "schema" : {
+            "type" : "boolean",
+            "default" : false
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Request fulfilled"
+          },
+          "400" : {
+            "description" : "Invalid query input"
+          },
+          "404" : {
+            "description" : "Not found"
+          },
+          "401" : {
+            "description" : "Unauthorized operation"
+          },
+          "500" : {
+            "description" : "Internal server error"
+          }
+        }
+      }
+    },
+    "/v1/documents/move" : {
+      "put" : {
+        "tags" : [ "/v1/documents" ],
+        "summary" : "Move documents",
+        "description" : "This rename a giving document.",
+        "operationId" : "moveDocument",
+        "parameters" : [ {
+          "name" : "documentID",
+          "in" : "query",
+          "description" : "document id",
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "ownerId",
+          "in" : "query",
+          "description" : "ownerId",
+          "schema" : {
+            "type" : "integer",
+            "format" : "int64"
+          }
+        }, {
+          "name" : "destPath",
+          "in" : "query",
+          "description" : "new path",
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Request fulfilled"
+          },
+          "400" : {
+            "description" : "Invalid query input"
+          },
+          "403" : {
+            "description" : "Unauthorized operation"
+          },
+          "404" : {
+            "description" : "Resource not found"
+          }
+        }
+      }
+    },
+    "/v1/documents/newname" : {
+      "get" : {
+        "tags" : [ "/v1/documents" ],
+        "summary" : "propose a new name for Folder is there is already a folder with the provided name",
+        "description" : "propose a new name for Folder is there is already a folder with the provided name",
+        "operationId" : "getNewName",
+        "parameters" : [ {
+          "name" : "parentid",
+          "in" : "query",
+          "description" : "parent id",
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "folderPath",
+          "in" : "query",
+          "description" : "folder Path",
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "ownerId",
+          "in" : "query",
+          "description" : "ownerId",
+          "schema" : {
+            "type" : "integer",
+            "format" : "int64"
+          }
+        }, {
+          "name" : "name",
+          "in" : "query",
+          "description" : "folder name",
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Request fulfilled"
+          },
+          "400" : {
+            "description" : "Invalid query input"
+          },
+          "403" : {
+            "description" : "Unauthorized operation"
+          },
+          "404" : {
+            "description" : "Resource not found"
+          }
+        }
+      }
+    },
+    "/v1/documents/permissions" : {
+      "post" : {
+        "tags" : [ "/v1/documents" ],
+        "summary" : "Undo deleting document if not yet effectively deleted",
+        "description" : "Undo deleting document if not yet effectively deleted",
+        "operationId" : "updatePermissions",
+        "requestBody" : {
+          "description" : "Permission object",
+          "content" : {
+            "*/*" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/FileNodeEntity"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "400" : {
+            "description" : "Invalid query input"
+          },
+          "403" : {
+            "description" : "Forbidden operation"
+          }
+        }
+      }
+    },
+    "/v1/documents/rename" : {
+      "put" : {
+        "tags" : [ "/v1/documents" ],
+        "summary" : "Rename documents",
+        "description" : "This rename a giving document.",
+        "operationId" : "renameDocument",
+        "parameters" : [ {
+          "name" : "documentID",
+          "in" : "query",
+          "description" : "document id",
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "ownerId",
+          "in" : "query",
+          "description" : "ownerId",
+          "schema" : {
+            "type" : "integer",
+            "format" : "int64"
+          }
+        }, {
+          "name" : "newName",
+          "in" : "query",
+          "description" : "new name",
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Request fulfilled"
+          },
+          "400" : {
+            "description" : "Invalid query input"
+          },
+          "403" : {
+            "description" : "Unauthorized operation"
+          },
+          "404" : {
+            "description" : "Resource not found"
+          }
+        }
+      }
+    },
+    "/v1/documents/{documentId}" : {
+      "delete" : {
+        "tags" : [ "/v1/documents" ],
+        "summary" : "Delete document",
+        "description" : "This deletes document",
+        "operationId" : "deleteDocument",
+        "parameters" : [ {
+          "name" : "documentId",
+          "in" : "path",
+          "description" : "Document id",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "document path",
+          "in" : "query",
+          "description" : "folder path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "favorite",
+          "in" : "query",
+          "description" : "Is favorite document",
+          "schema" : {
+            "type" : "boolean"
+          }
+        }, {
+          "name" : "delay",
+          "in" : "query",
+          "description" : "Time to effectively delete document",
+          "schema" : {
+            "type" : "integer",
+            "format" : "int64"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Document deleted"
+          },
+          "400" : {
+            "description" : "Invalid query input"
+          },
+          "401" : {
+            "description" : "User not authorized to delete the document"
+          },
+          "500" : {
+            "description" : "Internal server error"
+          }
+        }
+      }
+    },
+    "/v1/documents/{documentId}/undoDelete" : {
+      "post" : {
+        "tags" : [ "/v1/documents" ],
+        "summary" : "Undo deleting document if not yet effectively deleted",
+        "description" : "Undo deleting document if not yet effectively deleted",
+        "operationId" : "undoDeleteDocument",
+        "parameters" : [ {
+          "name" : "documentId",
+          "in" : "path",
+          "description" : "Document identifier",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "400" : {
+            "description" : "Invalid query input"
+          },
+          "403" : {
+            "description" : "Forbidden operation"
+          }
+        }
+      }
+    }
+  },
+  "components" : {
+    "schemas" : {
+      "FileNodeEntity" : {
+        "type" : "object",
+        "properties" : {
+          "acl" : {
+            "$ref" : "#/components/schemas/NodePermissionEntity"
+          },
+          "auditTrails" : {
+            "$ref" : "#/components/schemas/NodeAuditTrailsEntity"
+          },
+          "cloudDriveFile" : {
+            "type" : "boolean"
+          },
+          "cloudDriveFolder" : {
+            "type" : "boolean"
+          },
+          "createdDate" : {
+            "type" : "integer",
+            "format" : "int64"
+          },
+          "creatorIdentity" : {
+            "$ref" : "#/components/schemas/IdentityEntity"
+          },
+          "datasource" : {
+            "type" : "string"
+          },
+          "description" : {
+            "type" : "string"
+          },
+          "favorite" : {
+            "type" : "boolean"
+          },
+          "folder" : {
+            "type" : "boolean"
+          },
+          "id" : {
+            "type" : "string"
+          },
+          "linkedFileId" : {
+            "type" : "string"
+          },
+          "metadatas" : {
+            "type" : "object",
+            "additionalProperties" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/components/schemas/MetadataItemEntity"
+              }
+            }
+          },
+          "mimeType" : {
+            "type" : "string"
+          },
+          "modifiedDate" : {
+            "type" : "integer",
+            "format" : "int64"
+          },
+          "modifierIdentity" : {
+            "$ref" : "#/components/schemas/IdentityEntity"
+          },
+          "name" : {
+            "type" : "string"
+          },
+          "ownerIdentity" : {
+            "$ref" : "#/components/schemas/IdentityEntity"
+          },
+          "parentFolderId" : {
+            "type" : "string"
+          },
+          "path" : {
+            "type" : "string"
+          },
+          "size" : {
+            "type" : "integer",
+            "format" : "int64"
+          },
+          "sourceID" : {
+            "type" : "string"
+          },
+          "versionnedFileId" : {
+            "type" : "string"
+          },
+          "versions" : {
+            "$ref" : "#/components/schemas/FileVersionsEntity"
+          }
+        }
+      },
+      "FileVersionsEntity" : {
+        "type" : "object",
+        "properties" : {
+          "limit" : {
+            "type" : "integer",
+            "format" : "int64"
+          },
+          "offset" : {
+            "type" : "integer",
+            "format" : "int64"
+          },
+          "size" : {
+            "type" : "integer",
+            "format" : "int64"
+          },
+          "versions" : {
+            "type" : "object",
+            "additionalProperties" : {
+              "$ref" : "#/components/schemas/FileNodeEntity"
+            }
+          }
+        }
+      },
+      "IdentityEntity" : {
+        "type" : "object",
+        "properties" : {
+          "avatar" : {
+            "type" : "string"
+          },
+          "fullname" : {
+            "type" : "string"
+          },
+          "id" : {
+            "type" : "string"
+          },
+          "name" : {
+            "type" : "string"
+          },
+          "providerId" : {
+            "type" : "string"
+          },
+          "remoteId" : {
+            "type" : "string"
+          }
+        }
+      },
+      "MetadataItemEntity" : {
+        "type" : "object",
+        "properties" : {
+          "audienceId" : {
+            "type" : "integer",
+            "format" : "int64"
+          },
+          "creatorId" : {
+            "type" : "integer",
+            "format" : "int64"
+          },
+          "id" : {
+            "type" : "integer",
+            "format" : "int64"
+          },
+          "name" : {
+            "type" : "string"
+          },
+          "objectId" : {
+            "type" : "string"
+          },
+          "objectType" : {
+            "type" : "string"
+          },
+          "parentObjectId" : {
+            "type" : "string"
+          },
+          "properties" : {
+            "type" : "object",
+            "additionalProperties" : {
+              "type" : "string"
+            }
+          }
+        }
+      },
+      "NodeAuditTrailItemEntity" : {
+        "type" : "object",
+        "properties" : {
+          "actionType" : {
+            "type" : "string"
+          },
+          "date" : {
+            "type" : "integer",
+            "format" : "int64"
+          },
+          "id" : {
+            "type" : "integer",
+            "format" : "int64"
+          },
+          "properties" : {
+            "type" : "object",
+            "additionalProperties" : {
+              "type" : "string"
+            }
+          },
+          "targetIdentity" : {
+            "$ref" : "#/components/schemas/IdentityEntity"
+          },
+          "userIdentity" : {
+            "$ref" : "#/components/schemas/IdentityEntity"
+          }
+        }
+      },
+      "NodeAuditTrailsEntity" : {
+        "type" : "object",
+        "properties" : {
+          "limit" : {
+            "type" : "integer",
+            "format" : "int64"
+          },
+          "offset" : {
+            "type" : "integer",
+            "format" : "int64"
+          },
+          "size" : {
+            "type" : "integer",
+            "format" : "int64"
+          },
+          "trails" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/NodeAuditTrailItemEntity"
+            }
+          }
+        }
+      },
+      "NodePermissionEntity" : {
+        "type" : "object",
+        "properties" : {
+          "allMembersCanEdit" : {
+            "type" : "boolean"
+          },
+          "canAccess" : {
+            "type" : "boolean"
+          },
+          "canDelete" : {
+            "type" : "boolean"
+          },
+          "canEdit" : {
+            "type" : "boolean"
+          },
+          "collaborators" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/PermissionEntryEntity"
+            }
+          },
+          "visibilityChoice" : {
+            "type" : "string"
+          }
+        }
+      },
+      "PermissionEntryEntity" : {
+        "type" : "object",
+        "properties" : {
+          "identity" : {
+            "$ref" : "#/components/schemas/IdentityEntity"
+          },
+          "permission" : {
+            "type" : "string"
+          }
+        }
+      }
+    }
+  }
+}
