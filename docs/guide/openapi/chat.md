@@ -1,0 +1,1 @@
+<OpenApi page="addons_chat_swagger"/>

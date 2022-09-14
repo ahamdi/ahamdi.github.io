@@ -9,7 +9,6 @@ module.exports = {
    * Ref：https://v1.vuepress.vuejs.org/config/#description
    */
   description: description,
-  theme: 'openapi',
 
   /**
    * Extra tags to be injected to the page HTML `<head>`
@@ -38,6 +37,10 @@ module.exports = {
       {
         text: 'Guide',
         link: '/guide/',
+      },
+      {
+        text: 'REST API',
+        link: '/guide/developer-guide/advanced-integration/rest-api',
       },
       {
         text: 'eXo website',
@@ -86,10 +89,36 @@ module.exports = {
               path: '/guide/developer-guide/advanced-integration/',
               children: [
                 '/guide/developer-guide/advanced-integration/extension-points',
-                '/guide/developer-guide/advanced-integration/rest-api',
-                '/guide/openapi/social-swagger',
-                '/guide/openapi/social-swagger-with-samples',
-                '/social-swagger/',
+                {
+                  title: 'REST API',
+                  collapsable: true,
+                  path: '/guide/developer-guide/advanced-integration/rest-api',
+                  children: [
+                    ['/guide/openapi/social-swagger-with-samples', 'Social API + code Samples'],
+                    ['/guide/openapi/agenda', 'Agenda REST Api'],
+                    ['/guide/openapi/anti-malware', 'Anti Malware REST Api'],
+                    ['/guide/openapi/app-center', 'App Center REST Api'],  
+                    ['/guide/openapi/chat', 'Chat REST Api'],
+                    ['/guide/openapi/commons', 'Commons REST Api'],
+                    ['/guide/openapi/dlp', 'Data Leak Protection REST Api'],
+                    ['/guide/openapi/documents', 'Documents REST Api'],
+                    ['/guide/openapi/ecms', 'ECMS REST Api'],
+                    ['/guide/openapi/gamification', 'Gamification REST Api'],
+                    ['/guide/openapi/gatein_portal', 'Portal REST Api'],
+                    ['/guide/openapi/kudos', 'Kudos REST Api'],
+                    ['/guide/openapi/multifactor-authentication', 'Multi-factor AuthenticationREST Api'],
+                    ['/guide/openapi/news', 'News REST Api'],
+                    ['/guide/openapi/notes', 'Notes REST Api'],
+                    ['/guide/openapi/onlyoffice', 'Onlyoffice REST Api'],
+                    ['/guide/openapi/perk-store', 'Perk store REST Api'],
+                    ['/guide/openapi/poll', 'Poll REST Api'],
+                    ['/guide/openapi/processes', 'Processes REST Api'],
+                    ['/guide/openapi/social', 'Social REST Api'],
+                    ['/guide/openapi/tasks', 'Tasks REST Api'],
+                    ['/guide/openapi/wallet', 'Wallet REST Api'],
+                    ['/guide/openapi/web-conferencing', 'Web Conferencing REST Api'],
+                  ]
+                },
               ]
             },
             {

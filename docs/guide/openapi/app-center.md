@@ -1,0 +1,1 @@
+<OpenApi page="addons_app-center_swagger"/>

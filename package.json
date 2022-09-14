@@ -1,0 +1,29 @@
+{
+  "name": "ahamdi.github.io",
+  "version": "0.0.1",
+  "description": "eXo documentation",
+  "main": "index.js",
+  "authors": {
+    "name": "eXo",
+    "email": "ahamdi@exoplatform.com"
+  },
+  "repository": "ahamdi.github.io/ahamdi.github.io",
+  "scripts": {
+    "dev": "vuepress dev docs",
+    "build": "vuepress build docs"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "axios": "^0.27.2",
+    "vuepress": "^1.5.3"
+  },
+  "dependencies": {
+    "axios": "^0.21.1",
+    "file-saver": "^2.0.5",
+    "glob": "^7.1.6",
+    "js-yaml": "^4.0.0",
+    "js-yaml-loader": "^1.2.2",
+    "swagger-ui": "^3.33.0",
+    "yaml": "^1.10.0"
+  }
+}

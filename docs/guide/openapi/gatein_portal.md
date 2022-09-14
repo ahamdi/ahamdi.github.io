@@ -1,0 +1,1 @@
+<OpenApi page="gatein_portal_swagger"/>

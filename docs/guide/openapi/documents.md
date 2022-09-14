@@ -1,0 +1,1 @@
+<OpenApi page="documents_swagger"/>

@@ -1,0 +1,1 @@
+<OpenApi page="social_swagger"/>

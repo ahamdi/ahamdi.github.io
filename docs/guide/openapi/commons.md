@@ -1,0 +1,1 @@
+<OpenApi page="commons_swagger"/>

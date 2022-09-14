@@ -1,0 +1,1 @@
+<OpenApi page="agenda_swagger"/>
