@@ -75,7 +75,8 @@ jobs:
          widdershins -h
       - name: Convert files to Markdown
         run: |
-         echo "list of folders ${ls}"
+         echo "list of folders :"
+         ls -l
          echo "current folder is ${PWD}"
          mkdir -p docs/guide/swagger
          cd docs/guide/swagger
